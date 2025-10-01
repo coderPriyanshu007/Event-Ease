@@ -51,31 +51,31 @@ export const getEventAttendees = async (eventId) => {
 
 export const bookEventSeats = async (eventId, userId, seats) => {
 
-  const event = await pool.query('SELECT * FROM events WHERE id =$1',[eventId]);
-  if(event.rows[0].seats_booked === event.rows[0].capacity){
+  const event = await pool.query('SELECT * FROM events WHERE id =$1', [eventId]);
+  if (event.rows[0].seats_booked === event.rows[0].capacity) {
     throw new Error('Event is Full');
   }
   const exists = await pool.query('SELECT * FROM bookings WHERE event_id = $1 AND user_id = $2', [eventId, userId]);
-  if(exists.rows.length > 0 ){
-    if(exists.rows[0].seats + seats > 2){
+  if (exists.rows.length > 0) {
+    if (exists.rows[0].seats + seats > 2) {
       throw new Error('You have already booked maximum seats');
-    }else{
-      const {rows} = await pool.query('UPDATE bookings SET seats = seats + $1 WHERE event_id = $2 AND user_id = $3 RETURNING seats', [seats, eventId, userId]);
+    } else {
+      const { rows } = await pool.query('UPDATE bookings SET seats = seats + $1 WHERE event_id = $2 AND user_id = $3 RETURNING seats', [seats, eventId, userId]);
       await pool.query('UPDATE events SET seats_booked = seats_booked + $1 WHERE id = $2', [seats, eventId]);
       return rows[0];
     }
-  }else{
-    const {rows} = await pool.query('INSERT INTO bookings (event_id, user_id, seats) VALUES ($1, $2, $3) RETURNING seats', [eventId, userId, seats]);
+  } else {
+    const { rows } = await pool.query('INSERT INTO bookings (event_id, user_id, seats) VALUES ($1, $2, $3) RETURNING seats', [eventId, userId, seats]);
     await pool.query('UPDATE events SET seats_booked = seats_booked + $1 WHERE id = $2', [seats, eventId]);
     return rows[0];
   }
 
-  
+
 }
 
 export const removeAttendee = async (attendeeId) => {
-  const booking = await pool.query('SELECT * FROM bookings WHERE user_id = $1', [attendeeId]); 
-  if(booking.rows.length > 0){
+  const booking = await pool.query('SELECT * FROM bookings WHERE user_id = $1', [attendeeId]);
+  if (booking.rows.length > 0) {
     const eventId = booking.rows[0].event_id;
     const seats = booking.rows[0].seats;
     await pool.query('DELETE FROM bookings WHERE user_id = $1', [attendeeId]);
@@ -84,17 +84,9 @@ export const removeAttendee = async (attendeeId) => {
 }
 
 
-export const removeEvent = async(event_id) =>{
-  await pool.query('DELETE FROM events where event_id = $1',[event_id]);
+export const removeEvent = async (event_id) => {
+  await pool.query('DELETE FROM events where event_id = $1', [event_id]);
 }
 
-export const getBookedEvents = async(userId) =>{
-  const {rows} = await pool.query(`SELECT e.*
-FROM bookings b
-JOIN events e ON b.event_id = e.id
-WHERE b.user_id = $1
-ORDER BY e.date DESC;
-`,[userId])
-return rows;
-}
+
 
