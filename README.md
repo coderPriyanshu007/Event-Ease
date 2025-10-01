@@ -50,17 +50,23 @@ It allows users to create events, book seats, and manage their bookings, while a
 git clone https://github.com/coderPriyanshu007/Event-Ease.git
 cd Event-Ease
 
+```
+
 ### 2. Change directory to backend and install depenedencies, then run server.
 ```bash
 cd backend
 npm install
 npm run server
 
+```
+
 ### 3. Change directory to frontend , install dependencies and run dev. 
 ```bash
 cd frontend
 npm install
 npm run dev
+
+```
 
 ---
 
