@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import bg from "../assets/bg.png"
 import EventListing from "../components/EventListing";
+import { useAuth } from "../context/AuthContext";
 
 export default function LandingPage() {
+  const { user } = useAuth();
   return (
      <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Hero Section */}
@@ -18,9 +20,11 @@ export default function LandingPage() {
           <Link to="/events" className="bg-red-500 text-white px-6 py-3 rounded-md font-medium hover:bg-red-600">
             Browse Events
           </Link>
-          <Link to="/login" className="bg-gray-200 text-gray-800 px-6 py-3 rounded-md font-medium hover:bg-gray-300">
+          {
+            !user && (<Link to="/auth" className="bg-gray-200 text-gray-800 px-6 py-3 rounded-md font-medium hover:bg-gray-300">
             Get Started
-          </Link>
+          </Link>)
+          }
         </div>
       </main>
 

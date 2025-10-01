@@ -25,7 +25,7 @@ const App = () => {
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Homepage />} />
         <Route path="/events" element={<JobsPage />} />
-        <Route path="/event/:id" element={<JobPage />} />
+        
 
        <Route element={<ProtectedRoute requiredRole="user" />}>
         <Route path='/my-bookings' element={<MyBookings />} />
@@ -36,6 +36,7 @@ const App = () => {
           <Route path="/add-event" element={<CreateEvent />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/edit-event/:id" element={<EditEvent />} />  
+          <Route path="/event/:id" element={<JobPage />} />
         </Route>
 
         <Route path="/auth" element={<AuthPage />} />

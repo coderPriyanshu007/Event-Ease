@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { submitEvent } from "../api/events";
-
+import { useNavigate } from "react-router-dom";
 
 const CreateEvent = () => {
 
   const [adding, setAdding] = useState(false);
-
+  const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     event_id: generateEventId(),
     title: "",
@@ -16,6 +16,7 @@ const CreateEvent = () => {
     capacity: "",
     description: "",
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +40,7 @@ const CreateEvent = () => {
         autoClose: 1500,
         hideProgressBar: true,
       });
+      Navigate('/events');
     } catch (err) {
       console.error(err.message);
       toast.update(toastId, {
