@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { submitEvent } from "../api/events";
+import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const CreateEvent = () => {
 
   const [adding, setAdding] = useState(false);
+  const {token} = useAuth();
   const Navigate = useNavigate();
   const [formData, setFormData] = useState({
     event_id: generateEventId(),
@@ -32,7 +34,7 @@ const CreateEvent = () => {
     const toastId = toast.loading("Adding event...");
 
     try {
-      const res = await submitEvent(formData); 
+      const res = await submitEvent(formData,token); 
       toast.update(toastId, {
         render: res.message || "Event created!",
         isLoading: false,

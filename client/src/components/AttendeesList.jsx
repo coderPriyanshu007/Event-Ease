@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getAttendees,removeAttendee } from "../api/events"; 
+import { useAuth } from "../context/AuthContext";
 
 
 const AttendeesList = ({ eventId }) => {
@@ -8,11 +9,12 @@ const AttendeesList = ({ eventId }) => {
   const [attendees, setAttendees] = useState([]);
   const [loading, setLoading] = useState(true);
   const [removingId, setRemovingId] = useState(null);
+  const {token} = useAuth();
 
   useEffect(() => {
     const fetchAttendees = async () => {
       try {
-        const data = await getAttendees(eventId);
+        const data = await getAttendees(eventId,token);
         setAttendees(data);
       } catch (err) {
         console.error(err);
@@ -31,7 +33,7 @@ const AttendeesList = ({ eventId }) => {
     setRemovingId(attendeeId);
     const toastId = toast.loading("Removing attendee...");
     try {
-      await removeAttendee(attendeeId);
+      await removeAttendee(attendeeId,token);
       setAttendees((prev) => prev.filter((a) => a.id !== attendeeId));
       toast.update(toastId, {
         render: "Attendee removed!",

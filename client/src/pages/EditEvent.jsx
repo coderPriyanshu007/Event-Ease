@@ -4,6 +4,7 @@ import { fetchEventById, updateEvent } from "../api/events";
 import { formatDate } from "../utils/formatDate";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 const EditEvent = () => {
     const { id } = useParams();
     const [updating, setUpdating] = useState(false);
@@ -18,12 +19,13 @@ const EditEvent = () => {
         description: "",
     });
     const navigate = useNavigate();
+    const {token} = useAuth();
    
 
     useEffect(() => {
         const loadEvent = async () => {
             try {
-                const event = await fetchEventById(id);
+                const event = await fetchEventById(id,token);
                 setEvent(event)
             } catch (err) {
                 console.log(err.message);
@@ -62,7 +64,7 @@ const EditEvent = () => {
         const toastId = toast.loading("updating event...");
 
         try {
-            const res = await updateEvent(formData);
+            const res = await updateEvent(formData,token);
             toast.update(toastId, {
                 render:'Event Updated!',
                 isLoading: false,

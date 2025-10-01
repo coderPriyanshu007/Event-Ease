@@ -109,7 +109,7 @@ const EventListingComp = ({ event, page }) => {
                           }
                         }}
                         disabled={currentDate >= eventDate}
-                        className={`h-[36px] ${currentDate >= eventDate && event.capacity===event.seats ? 'opacity-[0.8] bg-gray-600' : 'opacity-[1] bg-red-500 hover:bg-red-600'}   text-white px-4 py-2 rounded text-center text-sm`}
+                        className={`h-[36px] ${currentDate >= eventDate || event.capacity===event.seats ? 'opacity-[0.8] bg-gray-600' : 'opacity-[1] bg-red-500 hover:bg-red-600'}   text-white px-4 py-2 rounded text-center text-sm`}
                       >
                       {event.capacity!==event.seats && currentDate<eventDate ? 'Book Now': 'Bookings Closed'}
                       </button>)

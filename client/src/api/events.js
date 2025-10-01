@@ -13,9 +13,13 @@ export const fetchEvents = async() => {
 }
 
 
-export const submitEvent = async (eventData) => {
+export const submitEvent = async (eventData,token) => {
   try {
-    const res = await axios.post(`${BASE_URL}/create-event`, eventData);
+    const res = await axios.post(`${BASE_URL}/create-event`, eventData,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    });
     return res.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to create event");
@@ -24,18 +28,27 @@ export const submitEvent = async (eventData) => {
 }
 
 
-export const deleteEvent = async (event_id) =>{
+export const deleteEvent = async (event_id,token) =>{
   try{
-    const res = await axios.delete(`${BASE_URL}/delete-event/${event_id}`)
+    const res = await axios.delete(`${BASE_URL}/delete-event/${event_id}`,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    }
+    )
     return res.data;
   }catch(error){
     throw new Error(error.response?.data?.message || 'failed to delete Event')
   }
 }
 
-export const fetchEventById = async (id) => {
+export const fetchEventById = async (id,token) => {
   try {
-    const res = await axios.get(`${BASE_URL}/${id}`);
+    const res = await axios.get(`${BASE_URL}/${id}`,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    });
     return res.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to fetch event");
@@ -51,9 +64,13 @@ export const fetchEventById = async (id) => {
 //   }
 // }
 
-export const updateEvent = async (eventData) => {
+export const updateEvent = async (eventData,token) => {
   try {
-    const res = await axios.patch(`${BASE_URL}/edit-event/${eventData.event_id}`, eventData); 
+    const res = await axios.patch(`${BASE_URL}/edit-event/${eventData.event_id}`, eventData,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    }); 
     return res.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to update event");
@@ -73,18 +90,26 @@ export const bookEventSeats = async (id, seats,token) => {
   } 
 }
 
-export const getAttendees = async (eventId) => { 
+export const getAttendees = async (eventId,token) => { 
     try{
-      const res = await axios.get(`${BASE_URL}/attendees/${eventId}`)
+      const res = await axios.get(`${BASE_URL}/attendees/${eventId}`,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      });
       return res.data;  
     }catch(error){
       throw new Error(error.response?.data?.message)
     }
 }
 
-export const removeAttendee = async (attendeeId) => {
+export const removeAttendee = async (attendeeId,token) => {
   try {
-    const res = await axios.delete(`${BASE_URL}/attendees/${attendeeId}`);
+    const res = await axios.delete(`${BASE_URL}/attendees/${attendeeId}`,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    });
     return res.data;
   } catch (error) {
     throw new Error(error.response?.data?.message || "Failed to remove attendee");

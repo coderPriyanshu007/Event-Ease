@@ -15,6 +15,7 @@ export const fetchEvents = async (req, res) => {
 
 export const addEvent = async (req, res) => {
   const eventData = req.body
+  if(req.user.role !== 'admin') return res.status(403).json({message:'Unauthorized'});
   try {
     await insertEvent(eventData);
     res.status(201).json({message:'Event added successfully'});
@@ -26,6 +27,7 @@ export const addEvent = async (req, res) => {
 
 export const deleteEvent = async (req,res) => {
   const {id} = req.params;
+  if(req.user.role !== 'admin') return res.status(403).json({message:'Unauthorized'});
 
   try{
     await removeEvent(id);
@@ -39,6 +41,7 @@ export const deleteEvent = async (req,res) => {
 
 export const fetchEventById = async (req, res) => { 
   const { id } = req.params;
+  if(req.user.role !== 'admin' && !req.user) return res.status(403).json({message:'Unauthorized'});
   try {
     const event = await getEventById(id);
     if (event) {
@@ -53,7 +56,8 @@ export const fetchEventById = async (req, res) => {
 
 export const editEvent = async (req, res) => {
   const { id } = req.params;
-  const eventData = req.body; 
+  const eventData = req.body;
+  if(req.user.role !== 'admin') return res.status(403).json({message:'Unauthorized'}); 
   try {
     const updatedEvent = await updateEvent(id, eventData);
     if (updatedEvent) {
@@ -83,7 +87,7 @@ export  const bookSeats = async (req, res) => {
 
 export const fetchAttendees = async (req, res) => {
   const { id } = req.params;  
-  
+  if(req.user.role !== 'admin') return res.status(403).json({message:'Unauthorized'});
   try {
     const attendees = await getEventAttendees(id);
     res.status(200).json(attendees);
@@ -95,6 +99,7 @@ export const fetchAttendees = async (req, res) => {
 
 export const deleteAttendee = async (req, res) => { 
   const { attendeeId } = req.params;
+  if(req.user.role !== 'admin') return res.status(403).json({message:'Unauthorized'});
   try {
     await removeAttendee(attendeeId);
     res.status(200).json({ message: 'Attendee removed successfully' });

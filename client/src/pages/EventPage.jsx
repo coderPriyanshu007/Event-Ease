@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { useEffect,useState } from 'react';
-
+import { useAuth } from '../context/AuthContext';
 import Spinner from '../components/Spinner';
 
 import { deleteEvent, fetchEventById } from '../api/events';
@@ -16,6 +16,7 @@ import AttendeesList from '../components/AttendeesList';
 
 const EventPage = () => {
     const {id} = useParams();
+    const {token} = useAuth();
     const [event , setEvent] = useState();
     const [loading,setLoading] = useState(true);
     const navigate = useNavigate();
@@ -23,7 +24,7 @@ const EventPage = () => {
     useEffect(()=>{
         const loadEvent = async()=>{
             try{
-                const event = await fetchEventById(id);
+                const event = await fetchEventById(id,token);
                 setEvent(event)
             }catch(err){
                 console.log(err.message);
@@ -39,7 +40,7 @@ const EventPage = () => {
         if (!confirm) return;
         const toastId = toast.loading('Deleting....');
         try{
-            const res = await deleteEvent(event.event_id);
+            const res = await deleteEvent(event.event_id,token);
             toast.update(toastId,{render: 'Event Deleted Successfully!'
                 ,isLoading:false,
                 type:'success'
