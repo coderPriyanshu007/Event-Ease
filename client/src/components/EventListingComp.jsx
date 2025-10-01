@@ -71,7 +71,7 @@ const EventListingComp = ({ event, page }) => {
             {event.location}
           </div>
           {
-            user.role === 'admin' ? (
+            user && user?.role === 'admin' ? (
               <button
                 onClick={() => {
                   navigate(`/event/${event.id}`)
