@@ -1,0 +1,555 @@
+{
+	"info": {
+		"_postman_id": "f9e207a4-7b62-4428-9d49-8633a0f85a81",
+		"name": "Event Ease Api",
+		"description": "Collection contain all the backend endpoints to perform create , read, update and delete functions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48936818",
+		"_collection_link": "https://kandaripriyanshu1-792488.postman.co/workspace/19133c92-68ab-4bd2-894d-e73d5331af29/collection/48936818-f9e207a4-7b62-4428-9d49-8633a0f85a81?action=share&source=collection_link&creator=48936818"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"john doe\",\n    \"email\": \"john@example.com\",\n    \"password\":\"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"register"
+							]
+						},
+						"description": "Registers a new user.\n\n- Public route.\n    \n- Requires: name, email, password (JSON body).\n    \n- Returns: created user object (without password)."
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "GET",
+								"header": []
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"john@example.com\",\n    \"password\" : \"1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login"
+							]
+						},
+						"description": "Logs in a user and returns a JWT token.\n\n- Public route.\n    \n- Requires: email, password (JSON body).\n    \n- Returns: token and user details."
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"john@example.com\",\n    \"password\" : \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Admin login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"john@example.com\",\n    \"password\" : \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5000/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Auth endpoints to register and login user."
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Fetch Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events"
+							]
+						},
+						"description": "Fetch all available events.\n\n- Public route.\n    \n- Returns: list of events with details (name, description, date, seats, etc.)."
+					},
+					"response": []
+				},
+				{
+					"name": "Add Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MzM1NzY5LCJleHAiOjE3NTk5NDA1Njl9.8whmbzlEymWpYMalee04WHgX8L4zuB2ljazfINeIM2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_id\":\"EVT-OCT2025-X3B\",\n    \"title\" : \"Christmas Celebration\",\n    \"Category\" : \"Festival\",\n    \"location\": \"In-person\",\n    \"description\":\"Celebrate enjoy and dance at Christmas\",\n    \"date\" : \"2025-10-02\",\n    \"capacity\": \"500\",\n    \"seats_booked\" : \"0\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/events/create-event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events",
+								"create-event"
+							]
+						},
+						"description": "Create a new event.\n\n- Protected route (Admin access required).\n    \n- Requires: name, description, category, capacity, location, date, seats (JSON body)."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MzM1NzY5LCJleHAiOjE3NTk5NDA1Njl9.8whmbzlEymWpYMalee04WHgX8L4zuB2ljazfINeIM2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/events/delete-event/:id?id=24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events",
+								"delete-event",
+								":id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "24"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Delete an event.\n\n- Protected route (Admin access required).\n    \n- Requires: event ID in URL parameter.\n    \n- Returns: confirmation message."
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Event By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MzM1NzY5LCJleHAiOjE3NTk5NDA1Njl9.8whmbzlEymWpYMalee04WHgX8L4zuB2ljazfINeIM2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/events/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events",
+								"1"
+							]
+						},
+						"description": "Fetch a single event by its ID.\n\n- Protected route (Admin acess).\n    \n- Requires: event ID in URL parameter.\n    \n- Returns: event details."
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MzM1NzY5LCJleHAiOjE3NTk5NDA1Njl9.8whmbzlEymWpYMalee04WHgX8L4zuB2ljazfINeIM2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event_id\": \"EVT-OCT2025-A1B\",\n    \"title\": \"AI & Machine Learning Summit\",\n    \"category\": \"Technology\",\n    \"location\": \"online\",\n    \"description\": \"A deep dive into AI, ML, and data-driven solutions with top industry experts.\",\n    \"date\": \"2025-10-14T18:30:00.000Z\",\n    \"capacity\": 500,\n    \"seats_booked\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/events/edit-event/EVT-OCT2025-A1B",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events",
+								"edit-event",
+								"EVT-OCT2025-A1B"
+							]
+						},
+						"description": "Update an existing event.\n\n- Protected route (Admin access).\n    \n- Requires: event ID in URL parameter.\n    \n- Accepts: updated fields in JSON body.\n    \n- Returns: updated event object."
+					},
+					"response": []
+				},
+				{
+					"name": "Book Seats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJpYXQiOjE3NTkzMTQ5OTQsImV4cCI6MTc1OTkxOTc5NH0.SCriJ3XKK80LChVHPw1y0dTdEX3gzs2h_51SqcePQ7o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"seats\":\"2\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/events/book-seats/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events",
+								"book-seats",
+								"1"
+							]
+						},
+						"description": "Book a seat for an event.\n\n- Protected route (Bearer token required).\n    \n- Requires: event_id in JSON body.\n    \n- Returns: booking confirmation and event details."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Attendees",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MzM1NzY5LCJleHAiOjE3NTk5NDA1Njl9.8whmbzlEymWpYMalee04WHgX8L4zuB2ljazfINeIM2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/events/attendees/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events",
+								"attendees",
+								"1"
+							]
+						},
+						"description": "Fetches the list of all users who booked a specific event. Only accessible by admins (Admin access required)."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Attendee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU5MzM1NzY5LCJleHAiOjE3NTk5NDA1Njl9.8whmbzlEymWpYMalee04WHgX8L4zuB2ljazfINeIM2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/events/attendees/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"events",
+								"attendees",
+								"1"
+							]
+						},
+						"description": "Remove attendees from a specific event with id as a query parameter.\n\nAdmin access required."
+					},
+					"response": []
+				}
+			],
+			"description": "All events related endpoint create,view,update and delete."
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Booked Events By User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6InVzZXIiLCJpYXQiOjE3NTkzMTQ5OTQsImV4cCI6MTc1OTkxOTc5NH0.SCriJ3XKK80LChVHPw1y0dTdEX3gzs2h_51SqcePQ7o",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/user/booked-events",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"booked-events"
+							]
+						},
+						"description": "- Get the list of all the event booked by user\n    \n- Token required.\n    \n- User login required."
+					},
+					"response": []
+				}
+			],
+			"description": "User event booking event , cancel booking before event starts."
+		}
+	],
+	"auth": {
+		"type": "jwt",
+		"jwt": [
+			{
+				"key": "algorithm",
+				"value": "HS256",
+				"type": "string"
+			},
+			{
+				"key": "isSecretBase64Encoded",
+				"value": false,
+				"type": "boolean"
+			},
+			{
+				"key": "payload",
+				"value": "{}",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "headerPrefix",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "queryParamKey",
+				"value": "token",
+				"type": "string"
+			},
+			{
+				"key": "header",
+				"value": "{}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
