@@ -50,12 +50,25 @@ It allows users to create events, book seats, and manage their bookings, while a
 git clone https://github.com/coderPriyanshu007/Event-Ease.git
 cd Event-Ease
 
+### 2. Change directory to backend and install depenedencies, then run server.
+```bash
 cd backend
 npm install
 npm run server
 
-
+### 3. Change directory to frontend , install dependencies and run dev. 
+```bash
 cd frontend
 npm install
 npm run dev
+
+---
+
+## Postman Documentation
+
+### 1. Link to Postman docmentation
+- [Postman Documentation](https://documenter.getpostman.com/view/48936818/2sB3QFSCgk)
+
+
+### 2. Or just import postman json file in the postman directory in the repo
 
