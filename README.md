@@ -39,16 +39,6 @@ It allows users to create events, book seats, and manage their bookings, while a
 - **Database:** PostgreSQL  
 - **Other Tools:** Axios, pg (PostgreSQL client)  
 
----
-
-## 📂 Project Structure
-
-
-Event-Ease/
-│
-├── frontend/ # React + Tailwind frontend
-├── backend/ # Node.js + Express backend
-└── README.md # Documentation
 
 
 ---
