@@ -12,7 +12,7 @@ const MyBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const data = await fetchBookedEventsByUser( token);
+        const data = await fetchBookedEventsByUser(token);
         setBookings(data);
       } catch (err) {
         toast.error(err.message);
@@ -24,7 +24,7 @@ const MyBookings = () => {
     
       fetchBookings();
     
-  }, [token]);
+  }, []);
 
   if (loading) {
     return <div className="text-center py-10 text-gray-600">Loading bookings...</div>;
