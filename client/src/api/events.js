@@ -42,14 +42,14 @@ export const fetchEventById = async (id) => {
   }
 }
 
-export const bookEvent = async (id, userId) => {
-  try {
-    const res = await axios.post(`${BASE_URL}/book/${id}`, { userId });
-    return res.data;
-  } catch (error) {
-    throw new Error(error.response?.data?.message || "Failed to book event");
-  }
-}
+// export const bookEvent = async (id, userId) => {
+//   try {
+//     const res = await axios.post(`${BASE_URL}/book/${id}`, { userId });
+//     return res.data;
+//   } catch (error) {
+//     throw new Error(error.response?.data?.message || "Failed to book event");
+//   }
+// }
 
 export const updateEvent = async (eventData) => {
   try {
