@@ -83,8 +83,13 @@ const Navbar = () => {
                       onClick={() => setOpen(false)}
                     ><MdDashboard className="mr-2" /> Dashboard</NavLink>
                     ):(
-                      ''
-                    )}
+                      <NavLink
+                      to="/my-bookings"
+                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => setOpen(false)}
+                    ><FaTicketAlt className="mr-2" /> My Bookings</NavLink>
+                    )
+                    }
                     
                     <button
                       onClick={() => {
