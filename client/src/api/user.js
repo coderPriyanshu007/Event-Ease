@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "/api/user";
+const BASE_URL = `${import.meta.env.VITE_API_URL}/user` || "/api/user";
 
 
 export const fetchBookedEventsByUser = async (token) => {

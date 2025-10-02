@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const BASE_URL = "/api/events";
+const BASE_URL = `${import.meta.env.VITE_API_URL}/events` || "/api/events";
 
 export const fetchEvents = async() => {
   try{
