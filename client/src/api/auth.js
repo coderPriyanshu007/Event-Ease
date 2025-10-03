@@ -1,7 +1,7 @@
 // src/api/auth.js
 import axios from 'axios';
 
-const API_BASE_URL = `${import.meta.env.VITE_API_URL}/auth` ||  '/api/auth';
+const API_BASE_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/auth` :  '/api/auth';
 
 // Register user
 export const registerUser = async (formData) => {
