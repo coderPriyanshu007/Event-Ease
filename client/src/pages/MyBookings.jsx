@@ -34,12 +34,21 @@ const MyBookings = () => {
   const cancelBookingById = async (bookingId) => {
     const confirm = window.confirm("Are you sure you want to cancel  bookings for this event?"  );
         if (!confirm) return;
+    const toastId = toast.loading('Canceling...')
     try {
       await cancelBooking(token, bookingId);
       setBookings((prev) => prev.filter((b) => b.booking_id !== bookingId));
-      toast.success("Booking cancelled successfully");
+      toast.update(toastId,{
+        render:"Booking cancelled successfully",
+        isLoading: false,
+        type : 'success'
+      });
     } catch (err) {
-      toast.error(err.message);
+      toast.update(toastId,{
+        render:err.message,
+        isLoading: false,
+        type : 'error'
+      });
     }
   }
     
