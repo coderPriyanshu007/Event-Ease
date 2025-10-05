@@ -37,14 +37,16 @@ const EventListingComp = ({ event, page }) => {
       toast.update(toastId,{
         render: 'Booking successful',
         type: 'success',
-        isLoading: false
+        isLoading: false,
+       
       });
     }catch(err){
       console.error(err.message);
       toast.update(toastId,{
         render: 'Booking Failed',
         isLoading: false,
-        type: 'error'
+        type: 'error',
+        
       });
     }
   }
