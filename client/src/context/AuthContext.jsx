@@ -1,7 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import {jwtDecode} from 'jwt-decode';
-import { auth } from '../firebase';
-import { signOut } from '@firebase/auth';
+
 
 
 const AuthContext = createContext();
@@ -31,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    await signOut(auth);
+    
   };
 
   const setAuth = (data) => {
