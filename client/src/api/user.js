@@ -19,3 +19,18 @@ export const fetchBookedEventsByUser = async (token) => {
     );
   }
 };
+
+export const cancelBooking = async (token, bookingId) => {
+  try {
+    const res = await axios.post(`${BASE_URL}/cancel-booking`, { bookingId }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return res.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to cancel booking"
+    );
+  }
+};

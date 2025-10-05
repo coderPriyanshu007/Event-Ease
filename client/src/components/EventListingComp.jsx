@@ -18,11 +18,11 @@ const EventListingComp = ({ event, page }) => {
   const { user } = useAuth();
   const status = () => {
     if (currentDate > eventDate) {
-      return (<span className='text-gray-600'>completed</span>);
+      return (<span className='text-gray-600 italic'>Completed</span>);
     } else if (currentDate < eventDate) {
-      return (<span className='text-green-500'>upcoming</span>);
+      return (<span className='text-green-500 italic'>Upcoming</span>);
     } else {
-      return (<span className='text-blue-500'>ongoing</span>);
+      return (<span className='text-blue-500 italic'>Ongoing</span>);
     }
   }
 
@@ -46,7 +46,7 @@ const EventListingComp = ({ event, page }) => {
     <div className="bg-white rounded-xl  shadow-md relative">
       <div className="p-4 h-full flex flex-col justify-between">
         <div className="mb-6">
-          <div className='flex flex-row justify-between'>
+          <div className='flex flex-row justify-between items-center mb-2'>
             <div className="text-gray-600 my-2">{event.category}</div>
             <div>{status()}</div>
           </div>

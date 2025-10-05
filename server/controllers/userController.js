@@ -1,4 +1,4 @@
-import { getBookedEvents } from "../models/userModel.js";
+import { getBookedEvents , removeBooking} from "../models/userModel.js";
 
 
 export const getBookedEventsByUser = async (req,res)=>{
@@ -10,6 +10,17 @@ export const getBookedEventsByUser = async (req,res)=>{
 
   }catch(err){
      res.status(500).json({ message: 'Error getting events', error: err.message });
-    console.log(err);
   }
 }
+
+export const deleteBooking = async (req,res)=>{
+  const {id} = req.user;
+  const {bookingId} = req.body;
+
+  try{
+    await removeBooking(id, bookingId);
+    res.status(200).json({message: "Booking cancelled successfully"});
+  }catch(err){
+    res.status(500).json({message: err.message});
+  }
+} 

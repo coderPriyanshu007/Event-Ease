@@ -3,17 +3,22 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext"; 
 import { toast } from "react-toastify";
 import { fetchBookedEventsByUser } from "../api/user";
+import {formatDate} from "../utils/formatDate";
+import Spinner from "../components/Spinner";
+import { cancelBooking } from "../api/user";
 
 const MyBookings = () => {
   const { token } = useAuth(); 
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const currentDate = new Date();
+ 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
         const data = await fetchBookedEventsByUser(token);
         setBookings(data);
+        
       } catch (err) {
         toast.error(err.message);
       } finally {
@@ -26,8 +31,22 @@ const MyBookings = () => {
     
   }, []);
 
+  const cancelBookingById = async (bookingId) => {
+    const confirm = window.confirm("Are you sure you want to cancel  bookings for this event?"  );
+        if (!confirm) return;
+    try {
+      await cancelBooking(token, bookingId);
+      setBookings((prev) => prev.filter((b) => b.booking_id !== bookingId));
+      toast.success("Booking cancelled successfully");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  }
+    
+
+
   if (loading) {
-    return <div className="text-center py-10 text-gray-600">Loading bookings...</div>;
+    return <div className="text-center py-10 text-gray-600"><Spinner loading={loading} /></div>;
   }
 
   if (bookings.length === 0) {
@@ -44,13 +63,27 @@ const MyBookings = () => {
         {bookings.map((event) => (
           <div
             key={event.event_id}
+            
             className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition"
           >
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">
               {event.title}
             </h3>
+            {currentDate < new Date(event.date) && (
+              <button onClick={()=>cancelBookingById(event.booking_id)} className="ring-1 hover:bg-red-500 hover:text-white ring-red-500 p-1.5 rounded-md">Cancel booking</button>
+            )}
+            {currentDate > new Date(event.date) && (
+              <span className="text-sm text-gray-500 italic">Completed</span>
+            )}
+            {
+              currentDate === new Date(event.date) && (
+                <span className="text-sm text-gray-500 italic">Ongoing</span>
+              )
+            }
+            </div>
             <p className="text-sm text-gray-600 mb-1">
-              📅 {new Date(event.date).toLocaleDateString()}
+              📅 {formatDate(event.date)}
             </p>
             <p className="text-sm text-gray-600 mb-1">
               📍 {event.location}
