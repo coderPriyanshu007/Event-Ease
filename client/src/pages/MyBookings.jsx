@@ -42,14 +42,14 @@ const MyBookings = () => {
         render:"Booking cancelled successfully",
         isLoading: false,
         type : 'success',
-       
+        autoClose:1500
       });
     } catch (err) {
       toast.update(toastId,{
         render:err.message,
         isLoading: false,
         type : 'error',
-       
+        autoClose:1500
       });
     }
   }

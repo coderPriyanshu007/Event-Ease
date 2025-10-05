@@ -38,7 +38,7 @@ const EventListingComp = ({ event, page }) => {
         render: 'Booking successful',
         type: 'success',
         isLoading: false,
-       
+       autoClose:1500
       });
     }catch(err){
       console.error(err.message);
@@ -46,7 +46,7 @@ const EventListingComp = ({ event, page }) => {
         render: 'Booking Failed',
         isLoading: false,
         type: 'error',
-        
+        autoClose:1500
       });
     }
   }
