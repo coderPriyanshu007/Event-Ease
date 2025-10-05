@@ -13,21 +13,38 @@ export const getBookedEvents = async (userId) => {
 
 export const removeBooking = async (userId, bookingId) => {
   const now = new Date();
+
   const {rows} = await pool.query(`
-    SELECT e.date
+    SELECT e.date , e.id as event_id , b.seats as seats_booked
     FROM events e
     JOIN bookings b ON e.id = b.event_id
     WHERE b.user_id = $1 AND b.id = $2
   `, [userId, bookingId]);
 
+  
   if (rows.length === 0) {
     throw new Error("Booking not found");
   }
 
-  const eventDate = new Date(rows[0].date);
+  const event = rows[0];
+  const eventDate = new Date(event.date);
+
+
   if (eventDate <= now) {
     throw new Error("Event has started or ongoing");
   }
-  await pool.query('DELETE FROM bookings WHERE id = $1 AND user_id = $2', [bookingId, userId]);
+
+
+  const deleteRes = await pool.query('DELETE FROM bookings WHERE id = $1 AND user_id = $2', [bookingId, userId]);
+
+  if(deleteRes.rowCount === 0){
+    throw new Error('Failed to delete booking')
+  }
+
+  await pool.query(`
+    UPDATE events
+    SET seats_booked = seats_booked - $1
+    WHERE id = $2
+    `,[event.seats_booked,event.event_id])
   
 }
