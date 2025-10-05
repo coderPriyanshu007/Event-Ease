@@ -28,16 +28,24 @@ const EventListingComp = ({ event, page }) => {
 
 
   const handleSubmit = async () => {
-    
+    const toastId = toast.loading('Booking...')
     try{
       const res = await bookEventSeats(event.id, bookedSeats,token);
       setSeats(seats + bookedSeats);
       setBooking(false);
       setBookedSeats(0);
-      toast.success('Booking successful');
+      toast.update(toastId,{
+        render: 'Booking successful',
+        type: 'success',
+        isLoading: false
+      });
     }catch(err){
       console.error(err.message);
-      toast.error(err.message);
+      toast.update(toastId,{
+        render: 'Booking Failed',
+        isLoading: false,
+        type: 'error'
+      });
     }
   }
   
