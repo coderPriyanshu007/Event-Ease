@@ -5,6 +5,8 @@ It allows users to create events, book seats, and manage their bookings, while a
 
 ---
 
+## Live - [EventEase](https://event-ease-khaki.vercel.app)
+
 ## ✨ Features
 
 - 🔐 **Authentication**
