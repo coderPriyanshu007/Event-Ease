@@ -58,7 +58,7 @@ export const bookEventSeats = async (eventId, userId, seats) => {
   const exists = await pool.query('SELECT * FROM bookings WHERE event_id = $1 AND user_id = $2', [eventId, userId]);
   if (exists.rows.length > 0) {
     if (exists.rows[0].seats + seats > 2) {
-      throw new Error('Seat limit exceeded.');
+      throw new Error('Maximum 2 seats can be booked per event');
     } else {
       const { rows } = await pool.query('UPDATE bookings SET seats = seats + $1 WHERE event_id = $2 AND user_id = $3 RETURNING seats', [seats, eventId, userId]);
       await pool.query('UPDATE events SET seats_booked = seats_booked + $1 WHERE id = $2', [seats, eventId]);

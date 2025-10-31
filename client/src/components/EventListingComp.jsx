@@ -43,7 +43,7 @@ const EventListingComp = ({ event, page }) => {
     }catch(err){
       console.error(err.message);
       toast.update(toastId,{
-        render: 'Booking Failed',
+        render: err.message || 'Booking failed',
         isLoading: false,
         type: 'error',
         autoClose:1500
@@ -136,7 +136,7 @@ const EventListingComp = ({ event, page }) => {
                 <input type="number" 
                 value={bookedSeats} 
                 onChange={(e) => setBookedSeats(Number(e.target.value))} 
-                min={0} 
+                min={1} 
                 max={2} 
                 className='w-full bg-gray-100 border p-2' 
                 placeholder='Enter No. of Seats' />
