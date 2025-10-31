@@ -82,7 +82,7 @@ const MyBookings = () => {
               {event.title}
             </h3>
             {currentDate < new Date(event.date) && (
-              <button onClick={()=>cancelBookingById(event.booking_id)} className="border text-red hover:bg-red-500 hover:text-white  p-1.5 rounded-md">Cancel booking</button>
+              <button onClick={()=>cancelBookingById(event.booking_id)} className="border text-red-500 hover:bg-red-500 hover:text-white  p-1.5 rounded-md">Cancel booking</button>
             )}
             {currentDate > new Date(event.date) && (
               <span className="text-sm text-gray-500 italic">Completed</span>
